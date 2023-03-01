@@ -1,5 +1,5 @@
 
-*****************CODE USED FOR INSTALLATION*******************
+*****************CODE USED FOR INSTALLATION in linux*******************
 
 sudo su
 yum install httpd php
