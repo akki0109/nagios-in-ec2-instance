@@ -1,0 +1,96 @@
+/////////////////////////////////////////////////////Steps to Install Nagios on Ubuntu 18.04\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+sudo apt update && apt upgrade 
+sudo apt-get install -y autoconf gcc libc6 make wget unzip apache2 php libapache2-mod-php7.2 libgd-dev
+
+@@@@@@@@@@@@@@@@@@@@@!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Install Nagios Package @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+cd /tmp
+wget -O nagioscore.tar.gz https://github.com/NagiosEnterprises/nagioscore/archive/nagios-4.4.5.tar.gz
+tar xzf nagioscore.tar.gz
+
+###############################################  Compile the package  ############################################################################
+
+cd /tmp/nagioscore-nagios-4.4.5/
+sudo ./configure --with-httpd-conf=/etc/apache2/sites-enabled
+sudo make all
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$  Create a group and a user  $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+sudo useradd nagios
+sudo groupadd nagios
+sudo usermod -a -G nagios www-data
+sudo make install
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  Create the systemd unit file  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+sudo make install-daemoninit
+
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&  Install the external command file  &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+	
+sudo make install-commandmode
+
+**********************************************************   Install configuration files  *********************************************************
+
+sudo make install-config
+
+((((((((((((((((((((((((((((((((((((((((((((((((((((((((  Install Apache configuration files  )))))))))))))))))))))))))))))))))))))))))))))))))))))
+
+sudo make install-webconf
+sudo a2enmod rewrite
+sudo a2enmod cgi
+
+_+_+_+_+__++_+_+_+____________________+_+++++++++++++++)  Firewall configuration   _______________+++++++++++++++++_____________+++++++++++
+
+sudo ufw allow 80/tcp
+sudo ufw reload
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  How to Secure Nagios Installation?  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+sudo htpasswd -c /usr/local/nagios/etc/htpasswd.users nagiosadmin
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~` Restart the Apache service  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+sudo systemctl restart apache2.service
+sudo systemctl status apache2.service
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  Starting Nagios and Installing Plugins  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+sudo systemctl start nagios.service
+	
+sudo systemctl status nagios.service
+
+$!$#$$$$$$$$$$$$@2@222@@@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!!@@!  Install the Nagios plugins   @@$$@$@$@$@$@!!$!$!$!$!$$$!$!$!$!$!$!$!$$!$!$!$$!$!$
+
+cd /tmp
+wget --no-check-certificate -O nagios-plugins.tar.gz https://github.com/nagios-plugins/nagios-plugins/archive/release-2.2.1.tar.gz
+tar zxf nagios-plugins.tar.gz
+
+$%%%$%$$%%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%  Compile the plugins   %$%$%$%$%$%$%$%%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%%$
+
+cd /tmp/nagios-plugins-release-2.2.1/
+sudo ./tools/setup
+sudo ./configure
+
+&*&*&**&*&*&*&*&*&*&*&*&*&*&**&*&*&*&*&*&*&*&*&*&*&*&*  Install the plugins  &*&***&*&*&*&*&*&*****************************************************
+
+sudo make
+sudo make install
+
+","_","_","_","_","_","_","_","_","_","_","_","_","_","_","_","_","_","_","_","_","_","_","_","_","_","_","_","_","_","_","_","_","_","_","_","_","_"
+
+http://IP_ADDRESS/nagios
+it will ask for login password so 
+user:-  nagiosadmin   (this is applicaple for my default configuration)
+password :- what you entered
+
+
+
+
+
+
+
+
+
+
+
