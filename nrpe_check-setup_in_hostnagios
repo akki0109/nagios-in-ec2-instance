@@ -1,0 +1,31 @@
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$  in host machine  $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$4    
+                          
+ @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ((open nagios.cfg))  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+nano  /usr/local/nagios/etc/nagios.cfg
+  
+                                   ((add following path into nagios.cfg))
+ 
+ cfg_file=/usr/local/nagios/etc/objects/filename.cfg          ((you can mention your own file name ))
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%   ((go to the objects directory))  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+cd /usr/local/nagios/etc/objects                             
+cp localhost.cfg   filename.cfg                                ((copy localhost.cfg content to yourfile)) it will copy as well as create your file            
+                                           
+ -------------------------------------------------------((open your filename.cfg ))--------------------------------------------------------------------
+
+@@@@@@@@@@@  these changes should done in Define a host for the local machine   under define host section @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+ host_name               client         ---any name for your client machine
+ alias                   client                 -------any name for your client machine
+ address                 3.134.96.183       -----client machine public ip
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@2@@@  delete HOST GROUP DEFINITION all parameter.@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+@@@@@@@@@@@@now in each services change host_name  to your client machine name ---which you mention above in host  i.e client.@@@@@@@@@@@@@@@@@@@@@@@@@
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  now save and restart nagios server  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+service nagios restart
+
+
