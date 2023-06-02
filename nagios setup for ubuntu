@@ -63,12 +63,12 @@ sudo systemctl status nagios.service
 $!$#$$$$$$$$$$$$@2@222@@@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!!@@!  Install the Nagios plugins   @@$$@$@$@$@$@!!$!$!$!$!$$$!$!$!$!$!$!$!$$!$!$!$$!$!$
 
 cd /tmp
-wget --no-check-certificate -O nagios-plugins.tar.gz https://github.com/nagios-plugins/nagios-plugins/archive/release-2.2.1.tar.gz
+wget --no-check-certificate -O nagios-plugins.tar.gz https://github.com/nagios-plugins/nagios-plugins/archive/release-2.4.5.tar.gz
 tar zxf nagios-plugins.tar.gz
 
 $%%%$%$$%%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%  Compile the plugins   %$%$%$%$%$%$%$%%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%%$
 
-cd /tmp/nagios-plugins-release-2.2.1/
+cd /tmp/nagios-plugins-release-2.4.5/
 sudo ./tools/setup
 sudo ./configure
 
