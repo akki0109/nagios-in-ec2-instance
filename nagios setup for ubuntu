@@ -13,6 +13,7 @@ tar xzf nagioscore.tar.gz
 
 cd /tmp/nagioscore-nagios-4.4.12/
 sudo ./configure --with-httpd-conf=/etc/apache2/sites-enabled
+sudo apt-get install libssl-dev
 sudo make all
 
 $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$  Create a group and a user  $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
