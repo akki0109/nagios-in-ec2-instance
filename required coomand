@@ -1,0 +1,30 @@
+sudo nano /usr/local/nagios/etc/objects/client.cfg
+
+sudo /usr/local/nagios/bin/nagios -v /usr/local/nagios/etc/nagios.cfg
+
+
+sudo systemctl restart nagios
+
+
+sudo apt install mailutils
+          |
+          |
+When prompted for the Fully Qualified Domain Name (FQDN) during the installation of mailutils on your Ubuntu server,
+you should provide the domain name that corresponds to your server's hostname.
+          |
+          |
+ hostname    ----output of this coomand should put when will prompt
+ 
+ 
+echo "This is a test email" | mail -s "Test Email" sharma.0109akash@gmail.com
+
+
+for checking logs '''''''      sudo nano /var/log/mail.log    ''''''
+
+
+sudo systemctl restart postfix
+
+
+
+sudo chmod 600 /etc/postfix/sasl_passwd
+sudo postmap /etc/postfix/sasl_passwd
